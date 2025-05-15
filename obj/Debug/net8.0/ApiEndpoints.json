@@ -30,5 +30,62 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ToDoList.Controllers.UserController",
+    "Method": "login",
+    "RelativePath": "login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "password",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ToDoList.Controllers.UserController",
+    "Method": "register",
+    "RelativePath": "register",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "NUser",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "LNPUser",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "LNMUser",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "EmailUser",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "PassUser",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
   }
 ]
