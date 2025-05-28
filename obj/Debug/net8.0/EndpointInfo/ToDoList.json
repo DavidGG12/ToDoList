@@ -47,6 +47,41 @@
         }
       }
     },
+    "/registerTask": {
+      "post": {
+        "tags": [
+          "Task"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "title",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "description",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/register": {
       "post": {
         "tags": [
@@ -125,5 +160,19 @@
       }
     }
   },
-  "components": { }
+  "components": {
+    "securitySchemes": {
+      "Bearer": {
+        "type": "apiKey",
+        "description": "Autenticación JWT usando el esquema Bearer. \r\n\r\n Ingresa la palabra Bearer seguido de un [espacio] y después su token en el campo de abajo \r\n\r\nEjemplo: \"Bearer tkljk125jhhk\"",
+        "name": "Authorization",
+        "in": "header"
+      }
+    }
+  },
+  "security": [
+    {
+      "Bearer": [ ]
+    }
+  ]
 }

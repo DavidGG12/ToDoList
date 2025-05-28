@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using SQLFactory;
+using Microsoft.AspNetCore.Mvc;
 using ToDoList.Helpers;
 using ToDoList.Models;
 using ToDoList.Models.Request;
@@ -16,9 +17,7 @@ namespace ToDoList.Controllers
         {
             _config = config;
             dt = new DataService();
-            //ERROR AL OBTENER EL TOKEN
             jwt = new JWT(_config["AppSettings:tokenKey"].ToString());
-
             conn = _config.GetConnectionString("Cnn");
         }
 
@@ -66,7 +65,7 @@ namespace ToDoList.Controllers
                     return Ok(token);
 
                 case "NO EXISTE":
-                    return BadRequest("USUARIO NO ENCONTRADO");
+                    return NotFound("USUARIO NO ENCONTRADO");
 
                 default:
                     return BadRequest(execute.Result);

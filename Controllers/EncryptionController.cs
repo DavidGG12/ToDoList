@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ToDoList.Helpers;
 using ToDoList.Models.Reponse;
 
@@ -8,6 +9,7 @@ namespace ToDoList.Controllers
     [Route("API/Encryption")]
     public class EncryptionController : ControllerBase
     {
+        [Authorize]
         [HttpGet("encryption")]
         public ActionResult encryption(string word)
         {
@@ -20,6 +22,7 @@ namespace ToDoList.Controllers
             return Ok(rp);
         }
 
+        [Authorize]
         [HttpGet("decryption")]
         public ActionResult decryption(string word)
         {

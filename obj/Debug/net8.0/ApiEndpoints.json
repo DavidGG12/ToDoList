@@ -87,5 +87,31 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ToDoList.Controllers.TaskController",
+    "Method": "registerTask",
+    "RelativePath": "registerTask",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "token",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "title",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "description",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
   }
 ]
