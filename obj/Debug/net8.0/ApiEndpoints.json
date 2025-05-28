@@ -40,14 +40,9 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "email",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "password",
-        "Type": "System.String",
-        "IsRequired": false
+        "Name": "loginUser",
+        "Type": "ToDoList.Models.Request.rq_PostLogin_Model",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
@@ -61,29 +56,9 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "NUser",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "LNPUser",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "LNMUser",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "EmailUser",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "PassUser",
-        "Type": "System.String",
-        "IsRequired": false
+        "Name": "rgstrUser",
+        "Type": "ToDoList.Models.Request.rq_PostRegister_Model",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
@@ -97,21 +72,74 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "token",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "title",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "description",
-        "Type": "System.String",
-        "IsRequired": false
+        "Name": "rq",
+        "Type": "ToDoList.Models.Request.rq_PostTask_Model",
+        "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 400
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 401
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
+  },
+  {
+    "ContainingType": "ToDoList.Controllers.TaskController",
+    "Method": "updateTask",
+    "RelativePath": "updateTask",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "rq",
+        "Type": "ToDoList.Models.Request.rq_PutTask_Model",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 400
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 422
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 401
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
   }
 ]

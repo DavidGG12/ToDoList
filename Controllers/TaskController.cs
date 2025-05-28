@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
+using SQLFactory;
 using ToDoList.Helpers;
+using ToDoList.Helpers.Attributes;
 using ToDoList.Models;
 using ToDoList.Models.Reponse;
 using ToDoList.Models.Request;
-using SQLFactory;
 
 namespace ToDoList.Controllers
 {
@@ -24,7 +25,11 @@ namespace ToDoList.Controllers
 
         [Authorize]
         [HttpPost("registerTask")]
-        public ActionResult registerTask(rq_PostTask_Model rq)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public ActionResult registerTask([FromBody]rq_PostTask_Model rq)
         {
             try
             {
@@ -40,25 +45,47 @@ namespace ToDoList.Controllers
                 if (resultado != null)
                     return Ok(new { resultado.idTask, resultado.TitleTasks, resultado.DescriptionTasks });
 
-                return BadRequest("No se ha podido registrar la tarea.");
+                return BadRequest(new { mensaje = "No se ha podido registrar la tarea." });
             }
             catch (SqlException exSQL)
             {
-                return BadRequest(exSQL.Message);
+                return BadRequest(new { mensaje = exSQL.Message });
             }
         }
 
         [Authorize]
+        [AcceptedIdTask(true)]
         [HttpPut("updateTask")]
-        public ActionResult updateTask()
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public ActionResult updateTask([FromBody]rq_PutTask_Model rq)
         {
             try
             {
-                
-            }
-            catch (SqlException sqlError)
-            {
+                var header = HttpContext.Request.Headers;
+                header.TryGetValue("idTask", out var idTask);
 
+                if (string.IsNullOrEmpty(idTask.ToString().Trim()))
+                    return UnprocessableEntity(new { mensaje = "Falta ID de la tarea" });
+
+                var parameters = new Dictionary<string, object>
+                {
+                    { "@idTask", idTask.ToString() },
+                    { "@title", rq.title },
+                    { "@description", rq.description }
+                };
+                var resultado = dt.GetData<TblAPI_TD_Tasks_Model>(conn, "sp_TDA_UpTask", parameters);
+                if (resultado != null)
+                    return Ok(new { resultado.idTask, resultado.TitleTasks, resultado.DescriptionTasks });
+
+                return BadRequest(new { mensaje = "No se ha podido registrar la tarea." });
+            }
+            catch (SqlException exSQL)
+            {
+                return BadRequest(new { mensaje = exSQL.Message });
             }
         }
     }

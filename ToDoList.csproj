@@ -26,4 +26,14 @@
     <ContainerPort Include="8081" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="SQLFactory">
+      <HintPath>..\..\..\..\Documents\PUBLICACIONES\SQLFactory\SQLFactory.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DBBK\" />
+  </ItemGroup>
+
 </Project>

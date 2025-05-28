@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
+using ToDoList.Helpers.Attributes;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,6 +26,12 @@ builder.Services.AddAuthentication(x =>
         ValidateIssuer = false,
         ValidateAudience = false
     };
+});
+
+//ADD HEADERS 
+builder.Services.AddSwaggerGen(c =>
+{
+    c.OperationFilter<AcceptedIdTask>();
 });
 
 // Add services to the container.

@@ -22,7 +22,7 @@ namespace ToDoList.Controllers
         }
 
         [HttpPost("register")]
-        public ActionResult register(rq_PostRegister_Model rgstrUser)
+        public ActionResult register([FromBody] rq_PostRegister_Model rgstrUser)
         {
             var infoUser = new rq_PostLogin_Model()
             {
@@ -48,7 +48,7 @@ namespace ToDoList.Controllers
         }
 
         [HttpPost("login")]
-        public ActionResult login(rq_PostLogin_Model loginUser)
+        public ActionResult login([FromBody] rq_PostLogin_Model loginUser)
         {
             var token = jwt.generateToken(loginUser);
             var parameters = new Dictionary<string, object>()
