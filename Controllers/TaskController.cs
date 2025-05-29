@@ -43,7 +43,7 @@ namespace ToDoList.Controllers
                 var rp = new rp_PostTask_Model();
 
                 if (resultado != null)
-                    return Ok(new { resultado.idTask, resultado.TitleTasks, resultado.DescriptionTasks });
+                    return Ok(new { resultado.idTasks, resultado.TitleTasks, resultado.DescriptionTasks });
 
                 return BadRequest(new { mensaje = "No se ha podido registrar la tarea." });
             }
@@ -79,7 +79,7 @@ namespace ToDoList.Controllers
                 };
                 var resultado = dt.GetData<TblAPI_TD_Tasks_Model>(conn, "sp_TDA_UpTask", parameters);
                 if (resultado != null)
-                    return Ok(new { resultado.idTask, resultado.TitleTasks, resultado.DescriptionTasks });
+                    return Ok(new { resultado.idTasks, resultado.TitleTasks, resultado.DescriptionTasks });
 
                 return BadRequest(new { mensaje = "No se ha podido registrar la tarea." });
             }
