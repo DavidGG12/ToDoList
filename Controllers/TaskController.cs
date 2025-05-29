@@ -88,5 +88,18 @@ namespace ToDoList.Controllers
                 return BadRequest(new { mensaje = exSQL.Message });
             }
         }
+
+        [Authorize]
+        [AcceptedIdTask(true)]
+        [HttpDelete("deleteTask")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public ActionResult deleteTask()
+        {
+
+            return default;
+        }
     }
 }
