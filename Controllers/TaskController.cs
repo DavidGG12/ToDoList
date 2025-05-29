@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using SQLFactory;
+using System.Runtime.CompilerServices;
 using ToDoList.Helpers;
 using ToDoList.Helpers.Attributes;
 using ToDoList.Models;
@@ -81,7 +82,7 @@ namespace ToDoList.Controllers
                 if (resultado != null)
                     return Ok(new { resultado.idTasks, resultado.TitleTasks, resultado.DescriptionTasks });
 
-                return BadRequest(new { mensaje = "No se ha podido registrar la tarea." });
+                return BadRequest(new { mensaje = "No se ha podido actualizar la tarea." });
             }
             catch (SqlException exSQL)
             {
@@ -91,6 +92,7 @@ namespace ToDoList.Controllers
 
         [Authorize]
         [AcceptedIdTask(true)]
+        [AcceptedIdUser(true)]
         [HttpDelete("deleteTask")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -98,8 +100,32 @@ namespace ToDoList.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult deleteTask()
         {
+            try
+            {
+                var header = HttpContext.Request.Headers;
+                header.TryGetValue("idTask", out var idTask);
+                header.TryGetValue("idUser", out var idUser);
 
-            return default;
+                if (string.IsNullOrEmpty(idTask.ToString().Trim()))
+                    return UnprocessableEntity(new { mensaje = "No se ingresó el ID de la tarea." });
+                if (string.IsNullOrEmpty(idUser.ToString().Trim()))
+                    return UnprocessableEntity(new { mensaje = "No se ingresó el ID del usuario." });
+
+                var parameters = new Dictionary<string, object>()
+                {
+                    { "@idTask", idTask.ToString() },
+                    { "@idUser", idUser.ToString() }
+                };
+                var resultado = dt.GetData<rslt_Execute_SP_Model>(conn, "sp_TDA_DelTask", parameters);
+                if(resultado != null && string.Equals(resultado.Result, "ELIMINADO"))
+                    return NoContent();
+
+                return BadRequest(new { mensaje = "No se ha podido eliminar la tarea" });
+            }
+            catch (SqlException exSQL)
+            {
+                return BadRequest(new { mensaje = exSQL.Message });
+            }
         }
     }
 }

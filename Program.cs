@@ -32,6 +32,7 @@ builder.Services.AddAuthentication(x =>
 builder.Services.AddSwaggerGen(c =>
 {
     c.OperationFilter<AcceptedIdTask>();
+    c.OperationFilter<AcceptedIdUser>();
 });
 
 // Add services to the container.
