@@ -25,6 +25,32 @@ namespace ToDoList.Controllers
         }
 
         [Authorize]
+        [HttpGet("getTasks")]
+        public ActionResult getTasks([FromQuery] string idTask = "")
+        {
+            try
+            {
+                var header = HttpContext.Request.Headers;
+                header.TryGetValue("idUser", out var idUser);
+
+                var parameters = new Dictionary<string, object>()
+                {
+                    { "@idUser", idUser },
+                    { "@idTask", idTask.Trim() }
+                };
+                var resultado = dt.GetData<TblAPI_TD_Tasks_Model>(conn, "sp_TDA_SelTask", parameters);
+
+                if (resultado != null)
+                    return Ok(resultado);
+                return NoContent();
+            }
+            catch (SqlException exSQL)
+            {
+                return BadRequest(new { mensaje = exSQL.Message });
+            }
+        }
+
+        [Authorize]
         [HttpPost("registerTask")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

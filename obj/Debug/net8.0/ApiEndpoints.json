@@ -63,6 +63,22 @@
     ]
   },
   {
+    "ContainingType": "ToDoList.Controllers.TaskController",
+    "Method": "getTasks",
+    "RelativePath": "getTasks",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idTask",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "ToDoList.Controllers.UserController",
     "Method": "login",
     "RelativePath": "login",
