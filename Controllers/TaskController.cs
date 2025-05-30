@@ -25,6 +25,7 @@ namespace ToDoList.Controllers
         }
 
         [Authorize]
+        [AcceptedIdUser(true)]
         [HttpGet("getTasks")]
         public ActionResult getTasks([FromQuery] string idTask = "")
         {
@@ -35,10 +36,10 @@ namespace ToDoList.Controllers
 
                 var parameters = new Dictionary<string, object>()
                 {
-                    { "@idUser", idUser },
+                    { "@idUser", idUser.ToString() },
                     { "@idTask", idTask.Trim() }
                 };
-                var resultado = dt.GetData<TblAPI_TD_Tasks_Model>(conn, "sp_TDA_SelTask", parameters);
+                var resultado = dt.GetDataList<TblAPI_TD_Tasks_Model>(conn, "sp_TDA_SelTask", parameters);
 
                 if (resultado != null)
                     return Ok(resultado);

@@ -60,6 +60,13 @@
               "type": "string",
               "default": ""
             }
+          },
+          {
+            "name": "idUser",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
