@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using SQLFactory;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
-using SQLFactory;
 using System.Runtime.CompilerServices;
 using ToDoList.Helpers;
 using ToDoList.Helpers.Attributes;
@@ -27,6 +27,10 @@ namespace ToDoList.Controllers
         [Authorize]
         [AcceptedIdUser(true)]
         [HttpGet("getTasks")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult getTasks([FromQuery] string idTask = "")
         {
             try
@@ -39,7 +43,7 @@ namespace ToDoList.Controllers
                     { "@idUser", idUser.ToString() },
                     { "@idTask", idTask.Trim() }
                 };
-                var resultado = dt.GetDataList<TblAPI_TD_Tasks_Model>(conn, "sp_TDA_SelTask", parameters);
+                var resultado = dt.GetDataList<rp_GetTask_Model>(conn, "sp_TDA_SelTask", parameters);
 
                 if (resultado != null)
                     return Ok(resultado);
